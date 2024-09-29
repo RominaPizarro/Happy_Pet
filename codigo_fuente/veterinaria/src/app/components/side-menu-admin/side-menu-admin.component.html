@@ -10,9 +10,9 @@
             </div>
             <div>
               <div class="font-semibold text-xl text-gray-700 capitalize font-poppins tracking-wide">
-                {{ infoUsuario?.nombres}} {{ infoUsuario?.apellidoPaterno }} {{ infoUsuario?.apellidoMaterno }}
+                {{ infoUsuario[0].username }}
               </div>
-              <div class="text-sm">{{infoUsuario?.nombrePerfil }}</div>
+              <div class="text-sm">{{infoUsuario[0].rol }}</div>
 
               <span class="text-sm tracking-wide flex items-center space-x-1">
                 <svg class="h-4 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -31,8 +31,8 @@
           <ul class="space-y-2 text-md">
 
             <li *ngFor="let item of menus">
-              <div (click)="onNavigateTo('back-office/chat/' + item.key)" role="button"
-                class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 {{ location.endsWith('back-office/chat/' + item.key)? 'bg-gray-200': 'focus:bg-gray-200'}} focus:shadow-outline">
+              <div (click)="onNavigateTo(item.url)" role="button"
+                class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 {{ location.endsWith(item.url)? 'bg-gray-200': 'focus:bg-gray-200'}} focus:shadow-outline">
                 <span class="flex text-gray-600">
                   <mat-icon>{{ item.icon }}</mat-icon>
                 </span>
@@ -86,12 +86,12 @@
             </div>
             <div class="flex items-center">
               <div class="flex flex-col text-right pr-5">
-                <div>{{ infoUsuario?.nombres }} {{ infoUsuario?.apellidoPaterno }} {{ infoUsuario?.apellidoMaterno }}
+                <div>{{ infoUsuario[0].username }}
                 </div>
-                <div class="text-md">{{ infoUsuario?.nombrePerfil }}</div>
+                <div class="text-md">{{ infoUsuario[0].rol }}</div>
               </div>
 
-              <div class="hidden">
+              <div>
                 <button mat-icon-button [matMenuTriggerFor]="menu" class="!text-white"
                   aria-label="Example icon-button with a menu">
                   <mat-icon>more_vert</mat-icon>

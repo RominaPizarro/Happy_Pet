@@ -34,15 +34,9 @@ export class SideMenuAdminComponent implements OnInit {
 
   loadInfoUsuario(): void {
     this.infoUsuario = this.authService.getInfoUsuario();
-    if (this.infoUsuario) {
-      this.opcionesPorPerfil = this.infoUsuario.opcionesPorPerfil;
-    } else {
-      this.infoUsuario = {
-        nombres:'ELDEN',
-        apellidoPaterno: 'GUTIERREZ',
-        apellidoMaterno: 'MARTINEZ',
-        nombrePerfil: '',
-      };
+    this.menus = JSON.parse(localStorage.getItem('menu') || 'null')
+    if (!this.infoUsuario) {
+      this.infoUsuario = this.authService.getInfoUsuario();
       this.router.navigate(['/']);
     }
   }

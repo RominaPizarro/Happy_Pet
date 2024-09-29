@@ -20,9 +20,9 @@ public class VeterinarioController {
     private IVeterinarioRepository repository;
 
     @PostMapping("list")
-    public ResponseEntity<Object> list(@RequestBody String filter) {
+    public ResponseEntity<Object> list(@RequestBody Veterinario o) {
         try {
-            return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+            return new ResponseEntity<>(repository.filter(o.getIdentificacion() + "%"), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -54,26 +54,26 @@ public class VeterinarioController {
     }
 
     @PostMapping("delete")
-    public ResponseEntity<Object> edit(@RequestBody Integer id) {
+    public ResponseEntity<Object> delete(@RequestBody Veterinario o) {
         try {
-            if (repository.findById(id) == null) {
+            if (repository.findById(o.getId()) == null) {
                 return new ResponseEntity<>("No existe el Veterinario", HttpStatus.BAD_REQUEST);
             }
 
-            repository.deleteById(id);
+            repository.deleteById(o.getId());
 
-            return new ResponseEntity<>("OK", HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("find")
-    public ResponseEntity<Object> find(@RequestBody Integer id) {
+    public ResponseEntity<Object> find(@RequestBody Veterinario o) {
         try {
-            Optional<Veterinario> o = repository.findById(id);
+            Optional<Veterinario> ob = repository.findById(o.getId());
 
-            return new ResponseEntity<>(o.get(), HttpStatus.OK);
+            return new ResponseEntity<>(ob.get(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

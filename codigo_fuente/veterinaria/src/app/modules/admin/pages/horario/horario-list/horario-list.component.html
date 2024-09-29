@@ -1,0 +1,79 @@
+<div class="container">
+  <div>
+    <div>
+      <h4>Programación de Horario del Veterinario</h4>
+      <hr>
+    </div>
+    <div class="pt-4">
+      <div [formGroup]="form" class="pb-5">
+        <mat-card class="w-full">
+          <mat-card-subtitle class="!p-5">
+            Horarios del veterinario - {{ veterinario?.nombres }} {{ veterinario?.apellidos }}
+          </mat-card-subtitle>
+          <mat-card-content>
+            <div class="flex flex-nowrap gap-3">
+
+              <div class="w-full">
+                <mat-form-field class="w-full">
+                  <mat-label>Programación</mat-label>
+                  <mat-select formControlName="programacion">
+                      <mat-option *ngFor="let item of programaciones" [value]="item">{{item.horaInicio}} - {{item.horaFin}}</mat-option>
+                  </mat-select>
+
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('programacion')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('programacion', 'Rol')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-3/12 text-right mt-3">
+                <button mat-flat-button class="!bg-minjus_primary !text-white !text-lg"
+                  (click)="onGuardar()">Asignar horario</button>
+              </div>
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+    </div>
+
+    <div>
+      <table mat-table [dataSource]="data" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="nro">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="horaInicio">
+          <th mat-header-cell *matHeaderCellDef> Hora inicio </th>
+          <td mat-cell *matCellDef="let element"> {{element.programacion.horaInicio}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="horaFin">
+          <th mat-header-cell *matHeaderCellDef> Hora fin </th>
+          <td mat-cell *matCellDef="let element"> {{element.programacion.horaFin}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef class="!text-center"> Acciones </th>
+          <td mat-cell *matCellDef="let element" class="!text-center">
+            <div class="flex justify-center">
+              <button mat-icon-button matTooltip="Eliminar" aria-label="Eliminar" class="!text-minjus_danger" (click)="onEliminar(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+
+
+</div>

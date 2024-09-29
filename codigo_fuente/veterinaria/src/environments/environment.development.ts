@@ -1,8 +1,8 @@
 export const environment = {
   version: '1.0.0',
-  baseUrl: 'http://172.17.17.29:8080/skynetia/#',
-  baseAuthenticationUrl: 'http://172.17.17.29:8080/sinotextbackend/api',
-  baseUrlBackend: 'http://localhost:6950/skynetbackend',
+  baseUrl: 'http://172.17.17.29:8080/veterinariabackend/#',
+  baseAuthenticationUrl: 'http://localhost:8900/veterinariabackend/api',
+  baseUrlBackend: 'http://localhost:8900/veterinariabackend/api',
   //baseUrlBackend: 'http://172.17.17.29:8080/skynetbackend',
 
   security: {

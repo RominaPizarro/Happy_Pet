@@ -29,10 +29,10 @@ export class LoginComponent implements OnInit {
   initForm(): void {
     this.form = this.formBuilder.group({
       codigoUsuario: [
-        'ADMINSDEF',
-        [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
+        'admin',
+        [Validators.required, Validators.maxLength(30)],
       ],
-      password: ['123456', [Validators.required, Validators.minLength(6)]],
+      password: ['admin', [Validators.required, Validators.minLength(5)]],
     });
 
     this.frmValidationUtils = new FormValidationUtils(this.form);
@@ -50,16 +50,55 @@ export class LoginComponent implements OnInit {
     const password = this.form.get('password')?.value;
 
     const dato = {
-      codigoUsuario: codigoUsuario,
+      username: codigoUsuario,
       password: password,
     };
 
     this.authService.login(dato).subscribe({
       next: (res) => {
-        localStorage.setItem('username', `${codigoUsuario}`);
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('jwtToken', res.accessToken);
+        const rol = res[0].rol;
+        localStorage.setItem('sesion', JSON.stringify(res));
+        localStorage.setItem('username', res[0].username);
+        localStorage.setItem('rol', rol);
+        localStorage.setItem('jwtToken', res[1]);
 
+        let menu = {};
+
+        if(rol == 'ADMINISTRADOR'){
+          menu = [
+            {
+              url: 'admin/usuario/list',
+              icon: 'group',
+              title: 'Gestionar Usuarios',
+            },
+            {
+              url: 'admin/veterinario/list',
+              icon: 'bloodtype',
+              title: 'Gestionar Veterinarios',
+            },
+          ];
+          this.router.navigate(['admin']);
+        }else if (rol == 'VETERINARIO'){
+          menu = [
+            {
+              url: '',
+              icon: '',
+              title: '',
+            }
+          ];
+          this.router.navigate(['veterinario']);
+        }else if(rol == 'CLIENTE'){
+          menu = [
+            {
+              url: '',
+              icon: '',
+              title: '',
+            }
+          ];
+          this.router.navigate(['cliente']);
+        }
+
+        localStorage.setItem('menu', JSON.stringify(menu));
       },
       error: (err) => {
         this.mensaje.showMessageErrorObservable(err);

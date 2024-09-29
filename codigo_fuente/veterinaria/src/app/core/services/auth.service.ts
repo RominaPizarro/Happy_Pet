@@ -1,5 +1,6 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthJWTService {
   }
 
   isLogged(): boolean {
-    return this.getUsername() != null && this.getToken() != null;
+    return this.getUsername() != null && this.getToken() != null && environment.security.secretKey == this.getToken();
   }
 
   getUsername(): string | null {
@@ -31,25 +32,13 @@ export class AuthJWTService {
     return JSON.parse(localStorage.getItem('sesion') || 'null');
   }
 
-  getNotariaId(): any{
-    return this.getInfoUsuario()?.notaria?.notariaId;
-  }
-
-  getNotariaRuc(): any{
-    if(this.getInfoUsuario()?.notaria){
-      return this.getInfoUsuario()?.notaria?.ruc;
-    }
-    return 'notaria';
-  }
-
   logout(): void {
       localStorage.removeItem('jwtToken');
       localStorage.removeItem('role');
       localStorage.removeItem('username');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('session');
+      localStorage.removeItem('sesion');
       localStorage.clear();
-    
+
 
     this.router.navigate(['auth/login']);
   }

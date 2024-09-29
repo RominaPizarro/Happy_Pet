@@ -1,5 +1,6 @@
 package com.project.veterinaria.controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,7 @@ public class HorarioController {
     @PostMapping("add")
     public ResponseEntity<Object> add(@RequestBody Horario o) {
         try {
+            o.setFecha(new Date());
             return new ResponseEntity<>(repository.save(o), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -63,15 +65,15 @@ public class HorarioController {
     }
 
     @PostMapping("delete")
-    public ResponseEntity<Object> edit(@RequestBody Integer id) {
+    public ResponseEntity<Object> delete(@RequestBody Horario o) {
         try {
-            if (repository.findById(id) == null) {
+            if (repository.findById(o.getId()) == null) {
                 return new ResponseEntity<>("No existe el Horario", HttpStatus.BAD_REQUEST);
             }
 
-            repository.deleteById(id);
+            repository.deleteById(o.getId());
 
-            return new ResponseEntity<>("OK", HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

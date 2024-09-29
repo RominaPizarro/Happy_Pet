@@ -1,8 +1,10 @@
 package com.project.veterinaria.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +21,13 @@ public class UsuarioController {
     @Autowired
     private IUsuarioRepository repository;
 
+    @Value("${secret.key.auth}")
+    private String secretKey;
+
     @PostMapping("list")
-    public ResponseEntity<Object> list(@RequestBody String filter) {
+    public ResponseEntity<Object> list(@RequestBody Usuario o) {
         try {
-            return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+            return new ResponseEntity<>(repository.filter(o.getUsername() + "%"), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -50,26 +55,45 @@ public class UsuarioController {
     }
 
     @PostMapping("delete")
-    public ResponseEntity<Object> edit(@RequestBody Integer id) {
+    public ResponseEntity<Object> delete(@RequestBody Usuario o) {
         try {
-            if (repository.findById(id) == null) {
+            if (repository.findById(o.getId()) == null) {
                 return new ResponseEntity<>("No existe el Usuario", HttpStatus.BAD_REQUEST);
             }
 
-            repository.deleteById(id);
+            repository.deleteById(o.getId());
 
-            return new ResponseEntity<>("OK", HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("find")
-    public ResponseEntity<Object> find(@RequestBody Integer id) {
+    public ResponseEntity<Object> find(@RequestBody Usuario o) {
         try {
-            Optional<Usuario> o = repository.findById(id);
+            Optional<Usuario> usuario = repository.findById(o.getId());
 
-            return new ResponseEntity<>(o.get(), HttpStatus.OK);
+            return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<Object> login(@RequestBody Usuario o) {
+        try {
+            System.out.println(o);
+            List<Usuario> data = repository.login(o.getUsername(), o.getPassword());
+
+            if (data.isEmpty()) {
+                return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.BAD_REQUEST);
+            }
+
+            return new ResponseEntity<>(new Object[]{
+                data.getFirst(),
+                secretKey
+            }, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

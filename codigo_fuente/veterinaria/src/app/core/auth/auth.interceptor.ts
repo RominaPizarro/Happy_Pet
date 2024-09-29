@@ -27,15 +27,10 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
-    if (request.url != 'none') {
-      if(secureSite){ secureSite['cookies'] = []; }
-      const jwtToken = this.authService.getToken();
-
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      });
+    if (!request.url.endsWith('usuario/login')) {
+      if(!this.authService.isLogged()){
+        this.authService.logout();
+      }
     }
 
     return next.handle(request).pipe(
