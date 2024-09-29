@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.veterinaria.repository.IProgramacionRepository;
 
 @RestController
-@RequestMapping("api/usuario")
+@RequestMapping("api/programacion")
 public class ProgramacionController {
     @Autowired
     private IProgramacionRepository repository;
