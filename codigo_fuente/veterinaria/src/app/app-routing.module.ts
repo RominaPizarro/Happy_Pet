@@ -10,6 +10,11 @@ import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: 'back-office',
     loadChildren: () =>
       import('./modules/admin/admin.module').then((m) => m.AdminModule),

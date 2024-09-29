@@ -5,7 +5,6 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } f
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthJWTModule } from './core/auth/auth.module';
@@ -37,7 +36,6 @@ export const MY_DATE_FORMATS = {
 @NgModule({
   declarations: [
     AppComponent,
-
     DialogConfirmationComponent,
     DialogLoadingComponent,
     DialogOverviewComponent,
@@ -45,27 +43,19 @@ export const MY_DATE_FORMATS = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-
     BrowserAnimationsModule,
     MatIconModule,
     AuthJWTModule,
     MatExpansionModule,
     MatToolbarModule,
     MatMenuModule,
-    MatExpansionModule,
     MatNativeDateModule,
-    MatIconModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
     MatTabsModule,
     MatListModule,
-
-    AuthJWTModule,
-  ],
-  exports: [
   ],
   providers: [
-    provideAnimationsAsync(),
     { provide: MAT_DATE_LOCALE, useValue: 'es-PE' },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     { provide: DateAdapter, useClass: DateFormat },
