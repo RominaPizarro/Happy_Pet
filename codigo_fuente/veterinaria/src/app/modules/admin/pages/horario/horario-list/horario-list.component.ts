@@ -47,7 +47,6 @@ export class HorarioListComponent implements OnInit {
   onLoad(){
     this.initForm();
 
-    console.log(this.veterinario)
     this.mensaje.showLoading();
     forkJoin({
       listProgramaciones: this.programacionService.list(),

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 import { AuthJWTService } from '../../../../../core/services/auth.service';
 import { MensajesService } from '../../../../../core/services/mensajes.service';
 import { FormValidationUtils } from '../../../../../utils/form-validation-utils';
-import { ClienteService } from '../../../services/cliente.service';
 import { CitaService } from '../../../services/cita.service';
+import { ClienteService } from '../../../services/cliente.service';
 
 @Component({
   selector: 'app-cita-list',
@@ -24,8 +23,6 @@ export class CitaListComponent implements OnInit {
 
   constructor(
     private mensaje: MensajesService,
-    private router: Router,
-    private formBuilder: FormBuilder,
 
     private clienteService: ClienteService,
     private authService: AuthJWTService,
@@ -39,7 +36,6 @@ export class CitaListComponent implements OnInit {
   onLoad() {
 
     const info = this.authService.getInfoUsuario();
-    console.log(info)
 
     this.mensaje.showLoading();
     this.clienteService.find({ id: info?.id }).subscribe({
@@ -50,7 +46,6 @@ export class CitaListComponent implements OnInit {
         this.mensaje.showMessageErrorObservable(err);
       },
       complete: () => {
-        console.log(this.cliente)
         this.mensaje.closeLoading();
         this.onListar();
       }
@@ -61,7 +56,6 @@ export class CitaListComponent implements OnInit {
     this.mensaje.showLoading();
     this.citaService.list(this.cliente?.id).subscribe({
       next: (res: any) => {
-        console.log('citas',res)
         this.data = res;
       },
       error: (err) => {

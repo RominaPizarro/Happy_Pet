@@ -32,6 +32,11 @@ export class VeterinarioService {
     return this.http.post(path, dato).pipe(map((res) => res));
   }
 
+  findByUsuario(dato: any){
+    const path = `${this.basePath}/findbyusuario`;
+    return this.http.post(path, dato).pipe(map((res) => res));
+  }
+
   delete(dato: any){
     const path = `${this.basePath}/delete`;
     return this.http.post(path, dato).pipe(map((res) => res));

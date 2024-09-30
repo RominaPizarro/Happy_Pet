@@ -1,0 +1,94 @@
+<div class="container">
+  <div>
+    <div>
+      <h4>Citas Programadas por Día</h4>
+      <hr>
+    </div>
+
+    <div class="pt-4">
+      <div [formGroup]="form" class="pb-5">
+        <mat-card class="w-full">
+          <mat-card-content>
+            <div class="flex flex-nowrap gap-3">
+              <div class="w-full">
+                <mat-form-field class="w-full">
+                  <mat-label>Ingrese la fecha a filtrar</mat-label>
+                  <input matInput formControlName="filter" [matDatepicker]="picker">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('filter')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('filter', 'Ingrese la fecha a filtrar')"></mat-error>
+                </mat-form-field>
+              </div>
+              <div class="flex flex-nowrap pt-3 ">
+                <button mat-flat-button class="!bg-minjus_primary !text-white !text-lg"
+                  (click)="onListar()">Buscar</button>
+              </div>
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+    </div>
+
+    <div>
+      <table mat-table [dataSource]="data" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="nro">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="fecharegistro">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{ convertToLocalDate(element.fechaRegistro) | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="veterinario">
+          <th mat-header-cell *matHeaderCellDef> Veterinario </th>
+          <td mat-cell *matCellDef="let element"> {{element.veterinario?.nombres}} {{element.veterinario?.apellidos}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mascota">
+          <th mat-header-cell *matHeaderCellDef> Mascota </th>
+          <td mat-cell *matCellDef="let element"> {{element.mascota?.nombre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="horario">
+          <th mat-header-cell *matHeaderCellDef> Horario </th>
+          <td mat-cell *matCellDef="let element"> {{element.horario?.programacion?.horaInicio}} - {{element.horario?.programacion?.horaFin}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cancelado">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let element"> {{element.cancelado == 1? 'CANCELADO': element.cancelado == 2? 'ATENDIDO': 'EN ESPERA'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef class="!text-center"> Acciones </th>
+          <td mat-cell *matCellDef="let element" class="!text-center">
+            <div class="flex justify-center" *ngIf="compareDate(element.fechaRegistro) && element.cancelado != 2">
+              <button mat-icon-button matTooltip="Atender" aria-label="Atender" class="!text-minjus_primary" (click)="onAtender(element)">
+                <mat-icon>event_available</mat-icon>
+              </button>
+            </div>
+            <div class="flex justify-center" *ngIf="element.cancelado == 2">
+              <button mat-icon-button matTooltip="Atendido" aria-label="Atendido" class="!text-minjus_success">
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+
+
+</div>

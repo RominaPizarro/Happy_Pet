@@ -87,9 +87,9 @@ export class LoginComponent implements OnInit {
         }else if (rol == 'VETERINARIO'){
           menu = [
             {
-              url: 'veterinario/usuario/list',
-              icon: 'group',
-              title: 'Gestionar Usuarios',
+              url: 'veterinario/cita/list',
+              icon: 'calendar_month',
+              title: 'Ver Citas Programadas',
             },
           ];
           this.router.navigate(['veterinario']);

@@ -1,0 +1,100 @@
+<div class="container">
+  <div>
+    <div>
+      <h4>Registrar resultado de la consulta</h4>
+      <hr>
+    </div>
+    <div class="pt-4">
+
+      <div class="mb-5">
+        <mat-card class="w-full">
+          <mat-card-content>
+            <div [formGroup]="form" class="flex flex-col gap-1">
+              <div class="w-full">
+                <mat-form-field class="w-full">
+                  <mat-label>Descripción</mat-label>
+                  <textarea matInput formControlName="descripcion" rows="3"></textarea>
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('descripcion')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('descripcion', 'Descripción')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full">
+                <mat-form-field class="w-full">
+                  <mat-label>Observaciones</mat-label>
+                  <textarea matInput formControlName="observaciones" rows="3"></textarea>
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('observaciones')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('observaciones', 'Observaciones')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full">
+                <mat-form-field class="w-full">
+                  <mat-label>Receta</mat-label>
+                  <textarea matInput formControlName="receta" rows="3"></textarea>
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('receta')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('receta', 'Receta')"></mat-error>
+                </mat-form-field>
+              </div>
+
+            </div>
+          </mat-card-content>
+          <mat-card-footer class="p-5">
+            <div class="flex gap-2">
+              <button mat-flat-button class="!bg-minjus_primary !text-white !text-lg"
+                (click)="onGuardar()">Registrar</button>
+              <button mat-flat-button class="!bg-minjus_danger !text-white !text-lg"
+                (click)="onCancelar()">Cancelar</button>
+            </div>
+          </mat-card-footer>
+
+        </mat-card>
+      </div>
+
+      <div>
+        <h4>Historial clínico veterinario de <strong>{{cita?.mascota?.nombre}}</strong></h4>
+        <hr>
+      </div>
+
+      <mat-card *ngIf="data.length == 0" class="w-full">
+        <mat-card-content>
+          <div class="text-center p-5">
+            AÚN NO TIENE INTERVENCIONES
+          </div>
+        </mat-card-content>
+
+      </mat-card>
+
+      <div *ngFor="let item of data" class="pt-3">
+        <mat-card class="w-full">
+          <mat-card-title>
+            <div class="p-2">
+              Fecha: {{ item.fecha | date: 'dd-MM-yyyy' }}
+              <p>
+                {{item.descripcion}}
+              </p>
+            </div>
+          </mat-card-title>
+          <mat-card-content>
+            <div>
+              <strong>Observaciones</strong>
+              <p>{{item.observaciones}}</p>
+            </div>
+
+            <div>
+              <strong>Receta</strong>
+              <p>{{item.receta}}</p>
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+    </div>
+
+    <div>
+    </div>
+  </div>
+
+
+</div>

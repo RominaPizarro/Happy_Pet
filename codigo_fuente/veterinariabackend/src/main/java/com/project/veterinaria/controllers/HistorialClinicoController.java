@@ -1,5 +1,6 @@
 package com.project.veterinaria.controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class HistorialClinicoController {
     @PostMapping("add")
     public ResponseEntity<Object> add(@RequestBody HistorialClinico o) {
         try {
+            o.setFecha(new Date());
             return new ResponseEntity<>(repository.save(o), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

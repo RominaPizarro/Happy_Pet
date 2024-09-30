@@ -25,6 +25,11 @@ const routes: Routes = [
       import('./modules/cliente/cliente.module').then((m) => m.ClienteModule),
   },
   {
+    path: 'veterinario',
+    loadChildren: () =>
+      import('./modules/veterinario/veterinario.module').then((m) => m.VeterinarioModule),
+  },
+  {
     path: '',
     redirectTo: '/auth/login',
     pathMatch: 'full',

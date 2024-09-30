@@ -1,5 +1,6 @@
 package com.project.veterinaria.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,17 @@ public class VeterinarioController {
             Optional<Veterinario> ob = repository.findById(o.getId());
 
             return new ResponseEntity<>(ob.get(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("findbyusuario")
+    public ResponseEntity<Object> findByUsuario(@RequestBody Veterinario ob) {
+        try {
+            List<Veterinario> o = repository.findByUsuario(ob.getId());
+
+            return new ResponseEntity<>(o.getFirst(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

@@ -1,5 +1,6 @@
 package com.project.veterinaria.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,17 @@ public class CitaController {
     public ResponseEntity<Object> list(@PathVariable Integer id) {
         try {
             List<Cita> data = repository.findByCliente(id);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("listbyveterinario/{id}")
+    public ResponseEntity<Object> listVeterinario(@PathVariable Integer id, @RequestBody Cita o) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            List<Cita> data = repository.findByVeterinario(id, sdf.format(o.getFechaRegistro()));
             return new ResponseEntity<>(data, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -57,9 +69,9 @@ public class CitaController {
     }
 
     @PostMapping("find")
-    public ResponseEntity<Object> find(@RequestBody Integer id) {
+    public ResponseEntity<Object> find(@RequestBody Cita ob) {
         try {
-            Optional<Cita> o = repository.findById(id);
+            Optional<Cita> o = repository.findById(ob.getId());
 
             return new ResponseEntity<>(o.get(), HttpStatus.OK);
         } catch (Exception e) {

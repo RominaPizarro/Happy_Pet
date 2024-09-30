@@ -40,7 +40,6 @@ export class MascotaListComponent implements OnInit {
   onLoad() {
 
     const info = this.authService.getInfoUsuario();
-    console.log(info)
 
     this.mensaje.showLoading();
     this.clienteService.find({ id: info?.id }).subscribe({
@@ -51,7 +50,6 @@ export class MascotaListComponent implements OnInit {
         this.mensaje.showMessageErrorObservable(err);
       },
       complete: () => {
-        console.log(this.cliente)
         this.mensaje.closeLoading();
         this.onListar();
       }
@@ -71,7 +69,6 @@ export class MascotaListComponent implements OnInit {
   onListar() {
     const filter = this.form.controls['filter'].value;
 
-    console.log('listar')
     this.mensaje.showLoading();
     this.mascotaService.list(this.cliente?.id, filter).subscribe({
       next: (res: any) => {

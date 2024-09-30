@@ -1,7 +1,7 @@
 <div class="container">
   <div>
     <div>
-      <h4>Historial clínico veterinadio de <strong>{{mascota?.nombre}}</strong></h4>
+      <h4>Historial clínico veterinario de <strong>{{mascota?.nombre}}</strong></h4>
       <hr>
     </div>
     <div class="pt-4">
@@ -15,29 +15,31 @@
 
       </mat-card>
 
-      <mat-card class="w-full" *ngFor="let item of data">
-        <mat-card-title>
-          <div class="p-2">
-            Fecha: {{ item.fecha | date: 'dd-MM-yyyy' }}
-            <p>
-              {{item.descripcion}}
-            </p>
-          </div>
-        </mat-card-title>
-        <mat-card-content>
-          <div>
-            <strong>Observaciones</strong>
-            <p>{{item.observaciones}}</p>
-          </div>
+      <div *ngFor="let item of data" class="pt-3">
+        <mat-card class="w-full">
+          <mat-card-title>
+            <div class="p-2">
+              Fecha: {{ item.fecha | date: 'dd-MM-yyyy' }}
+              <p>
+                {{item.descripcion}}
+              </p>
+            </div>
+          </mat-card-title>
+          <mat-card-content>
+            <div>
+              <strong>Observaciones</strong>
+              <p>{{item.observaciones}}</p>
+            </div>
 
-          <div>
-            <strong>Receta</strong>
-            <p>{{item.receta}}</p>
-          </div>
+            <div>
+              <strong>Receta</strong>
+              <p>{{item.receta}}</p>
+            </div>
 
-        </mat-card-content>
+          </mat-card-content>
 
-      </mat-card>
+        </mat-card>
+      </div>
     </div>
 
     <div>

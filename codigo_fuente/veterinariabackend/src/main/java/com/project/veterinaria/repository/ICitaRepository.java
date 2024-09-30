@@ -13,4 +13,7 @@ import com.project.veterinaria.models.Cita;
 public interface ICitaRepository extends JpaRepository<Cita, Integer> {
     @Query("SELECT o FROM Cita o WHERE o.mascota.cliente.id = :id")
     List<Cita> findByCliente(@Param("id") Integer id);
+
+    @Query("SELECT o FROM Cita o WHERE o.veterinario.id = :id AND DATE_FORMAT(o.fechaRegistro, '%Y-%m-%d')  = :fecha AND o.cancelado <> 1")
+    List<Cita> findByVeterinario(@Param("id") Integer id, @Param("fecha") String fecha);
 }

@@ -16,6 +16,11 @@ export class CitaService {
     return this.http.post(path, null).pipe(map((res) => res));
   }
 
+  listByVeterinario(veterinarioId: any, dato: any){
+    const path = `${this.basePath}/listbyveterinario/${veterinarioId}`;
+    return this.http.post(path, dato).pipe(map((res) => res));
+  }
+
   add(dato: any){
     const path = `${this.basePath}/add`;
     return this.http.post(path, dato).pipe(map((res) => res));
@@ -27,7 +32,7 @@ export class CitaService {
   }
 
   find(dato: any){
-    const path = `${this.basePath}/findbyusuario`;
+    const path = `${this.basePath}/find`;
     return this.http.post(path, dato).pipe(map((res) => res));
   }
 

@@ -83,7 +83,6 @@ public class UsuarioController {
     @PostMapping("login")
     public ResponseEntity<Object> login(@RequestBody Usuario o) {
         try {
-            System.out.println(o);
             List<Usuario> data = repository.login(o.getUsername(), o.getPassword());
 
             if (data.isEmpty()) {

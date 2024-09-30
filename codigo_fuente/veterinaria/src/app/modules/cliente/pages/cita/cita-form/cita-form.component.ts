@@ -113,7 +113,6 @@ export class CitaFormComponent implements OnInit {
     this.mensaje.showLoading();
     this.horarioService.list(veterinario?.id).subscribe({
       next: (res) => {
-        console.log(res)
         this.horarios = res;
       },
       error: (err) => {
