@@ -20,9 +20,10 @@ import { MascotaListComponent } from './pages/mascota/mascota-list/mascota-list.
 import { MascotaFormComponent } from './pages/mascota/mascota-form/mascota-form.component';
 import { MascotaHistorialComponent } from './pages/mascota/mascota-historial/mascota-historial.component';
 import { CitaListComponent } from './pages/cita/cita-list/cita-list.component';
+import { CitaFormComponent } from './pages/cita/cita-form/cita-form.component';
 
 @NgModule({
-  declarations: [ SideMenuClienteComponent, ClienteComponent, MascotaListComponent, MascotaFormComponent, MascotaHistorialComponent, CitaListComponent],
+  declarations: [ SideMenuClienteComponent, ClienteComponent, MascotaListComponent, MascotaFormComponent, MascotaHistorialComponent, CitaListComponent, CitaFormComponent],
   imports: [
     CommonModule,
     FormsModule,

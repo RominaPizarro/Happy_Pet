@@ -1,0 +1,75 @@
+<div class="container">
+  <div>
+    <div>
+      <h4>Reservar Cita</h4>
+      <hr>
+    </div>
+    <div class="pt-4">
+      <div [formGroup]="form" class="pb-5">
+        <mat-card class="w-full">
+          <mat-card-content>
+            <div class="flex flex-wrap">
+
+              <div class="w-full md:w-1/2 p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>fecha</mat-label>
+                  <input matInput formControlName="fecha" type="date">
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('fecha')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('fecha', 'fecha')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full md:w-1/2 p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>Mascota</mat-label>
+                  <mat-select formControlName="mascota">
+                    <mat-option *ngFor="let item of mascotas" [value]="item">{{item.nombre}}</mat-option>
+                </mat-select>
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('mascota')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('mascota', 'Mascota')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full md:w-1/2 p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>Veterinario</mat-label>
+                  <mat-select formControlName="veterinario" (valueChange)="onListHorario($event)">
+                    <mat-option *ngFor="let item of veterinarios" [value]="item">{{item.nombres}} {{item.apellidos}}</mat-option>
+                </mat-select>
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('veterinario')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('veterinario', 'Veterinario')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full md:w-1/2 p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>Horario</mat-label>
+                  <mat-select formControlName="horario">
+                    <mat-option *ngFor="let item of horarios" [value]="item">{{item.programacion?.horaInicio}} - {{item.programacion?.horaFin}}</mat-option>
+                </mat-select>
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('horario')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('horario', 'Horario')"></mat-error>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+          </mat-card-content>
+
+          <mat-card-footer class="p-5">
+            <div class="flex gap-2">
+              <button mat-flat-button class="!bg-minjus_primary !text-white !text-lg"
+                (click)="onGuardarMascota()">Registrar</button>
+              <button mat-flat-button class="!bg-minjus_danger !text-white !text-lg"
+                (click)="onCancelar()">Cancelar</button>
+            </div>
+          </mat-card-footer>
+
+        </mat-card>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
