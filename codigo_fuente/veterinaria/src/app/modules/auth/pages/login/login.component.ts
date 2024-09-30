@@ -76,6 +76,11 @@ export class LoginComponent implements OnInit {
               icon: 'bloodtype',
               title: 'Gestionar Veterinarios',
             },
+            {
+              url: 'admin/veterinario/list',
+              icon: 'list_alt',
+              title: 'Generar Reportes',
+            },
           ];
           this.router.navigate(['admin']);
         }else if (rol == 'VETERINARIO'){
