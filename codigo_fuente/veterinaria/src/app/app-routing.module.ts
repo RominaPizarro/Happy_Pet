@@ -20,6 +20,11 @@ const routes: Routes = [
       import('./modules/admin/admin.module').then((m) => m.AdminModule),
   },
   {
+    path: 'cliente',
+    loadChildren: () =>
+      import('./modules/cliente/cliente.module').then((m) => m.ClienteModule),
+  },
+  {
     path: '',
     redirectTo: '/auth/login',
     pathMatch: 'full',

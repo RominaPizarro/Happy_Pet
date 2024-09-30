@@ -22,9 +22,9 @@ public class MascotaController {
     private IMascotaRepository repository;
 
     @PostMapping("list/{id}")
-    public ResponseEntity<Object> list(@PathVariable Integer id) {
+    public ResponseEntity<Object> list(@PathVariable Integer id, @RequestBody Mascota o) {
         try {
-            List<Mascota> data = repository.findByCliente(id);
+            List<Mascota> data = repository.findByCliente(id, o.getNombre() + "%");
             return new ResponseEntity<>(data, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -71,9 +71,9 @@ public class MascotaController {
     }
 
     @PostMapping("find")
-    public ResponseEntity<Object> find(@RequestBody Integer id) {
+    public ResponseEntity<Object> find(@RequestBody Mascota ob) {
         try {
-            Optional<Mascota> o = repository.findById(id);
+            Optional<Mascota> o = repository.findById(ob.getId());
 
             return new ResponseEntity<>(o.get(), HttpStatus.OK);
         } catch (Exception e) {

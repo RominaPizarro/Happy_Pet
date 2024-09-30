@@ -1,0 +1,78 @@
+<div class="container">
+  <div>
+    <div>
+      <h4>Agregar Mascota</h4>
+      <hr>
+    </div>
+    <div class="pt-4">
+      <div [formGroup]="form" class="pb-5">
+        <mat-card class="w-full">
+          <mat-card-content>
+            <div class="flex flex-wrap">
+
+              <div class="w-full md:w-1/2 p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput formControlName="nombre" type="text" maxlength="200">
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('nombre')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('nombre', 'Nombre')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full md:w-1/2 p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>Edad</mat-label>
+                  <input matInput formControlName="edad" type="number" min="0">
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('edad')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('edad', 'Edad')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full md:w-1/2 p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>Peso</mat-label>
+                  <input matInput formControlName="peso" type="number" min="0" >
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('peso')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('peso', 'Peso')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full md:w-1/2 p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>Raza</mat-label>
+                  <input matInput formControlName="raza" type="text" maxlength="200">
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('raza')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('raza', 'Raza')"></mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="w-full p-1">
+                <mat-form-field class="w-full">
+                  <mat-label>Descripción</mat-label>
+                  <textarea matInput formControlName="descripcion" rows="3"></textarea>
+                  <mat-error *ngIf="frmValidationUtils?.hasErrors('descripcion')"
+                    [innerHtml]="frmValidationUtils.getErrorMessages('descripcion', 'Descripción')"></mat-error>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+          </mat-card-content>
+
+          <mat-card-footer class="p-5">
+            <div class="flex gap-2">
+              <button mat-flat-button class="!bg-minjus_primary !text-white !text-lg"
+                (click)="onGuardarMascota()">{{mascota.id? 'Actualizar': 'Registrar'}}</button>
+              <button mat-flat-button class="!bg-minjus_danger !text-white !text-lg"
+                (click)="onCancelar()">Cancelar</button>
+            </div>
+          </mat-card-footer>
+
+        </mat-card>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

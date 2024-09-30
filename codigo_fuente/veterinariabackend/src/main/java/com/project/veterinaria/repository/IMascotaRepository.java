@@ -11,6 +11,6 @@ import com.project.veterinaria.models.Mascota;
 
 @Repository
 public interface IMascotaRepository extends JpaRepository<Mascota, Integer> {
-    @Query("SELECT o FROM Mascota o WHERE o.cliente.id = :id")
-    List<Mascota> findByCliente(@Param("id") Integer id);
+    @Query("SELECT o FROM Mascota o WHERE o.cliente.id = :id AND o.nombre LIKE :filter")
+    List<Mascota> findByCliente(@Param("id") Integer id, @Param("filter") String filter);
 }

@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(dato).subscribe({
       next: (res) => {
         const rol = res[0].rol;
-        localStorage.setItem('sesion', JSON.stringify(res));
+        localStorage.setItem('sesion', JSON.stringify(res[0]));
         localStorage.setItem('username', res[0].username);
         localStorage.setItem('rol', rol);
         localStorage.setItem('jwtToken', res[1]);
@@ -83,27 +83,38 @@ export class LoginComponent implements OnInit {
             },
           ];
           this.router.navigate(['admin']);
+          localStorage.setItem('menu-admin', JSON.stringify(menu));
         }else if (rol == 'VETERINARIO'){
           menu = [
             {
-              url: '',
-              icon: '',
-              title: '',
-            }
+              url: 'veterinario/usuario/list',
+              icon: 'group',
+              title: 'Gestionar Usuarios',
+            },
           ];
           this.router.navigate(['veterinario']);
+          localStorage.setItem('menu-veterinario', JSON.stringify(menu));
         }else if(rol == 'CLIENTE'){
           menu = [
             {
-              url: '',
-              icon: '',
-              title: '',
-            }
+              url: 'cliente/mascota/list',
+              icon: 'pets',
+              title: 'Gestionar Mascotas',
+            },
+            {
+              url: 'cliente/cita/list',
+              icon: 'list',
+              title: 'Mis Citas',
+            },
+            {
+              url: 'cliente/cita/add',
+              icon: 'favorite',
+              title: 'Reservar Cita',
+            },
           ];
           this.router.navigate(['cliente']);
+          localStorage.setItem('menu-cliente', JSON.stringify(menu));
         }
-
-        localStorage.setItem('menu', JSON.stringify(menu));
       },
       error: (err) => {
         this.mensaje.showMessageErrorObservable(err);
@@ -119,7 +130,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onInvitado(): void{
-    this.router.navigate(['client/mi-sede-mas-cercana']);
+  onRegister(): void{
+    this.router.navigate(['auth/register']);
   }
 }

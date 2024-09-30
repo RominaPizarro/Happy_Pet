@@ -3,14 +3,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { AuthJWTService } from '../../core/services/auth.service';
-import { RouteDataService } from '../../core/services/route-data.service';
 
 @Component({
-  selector: 'app-side-menu-admin',
-  templateUrl: './side-menu-admin.component.html',
-  styleUrl: './side-menu-admin.component.css',
+  selector: 'app-side-menu-cliente',
+  templateUrl: './side-menu-cliente.component.html',
+  styleUrl: './side-menu-cliente.component.css'
 })
-export class SideMenuAdminComponent implements OnInit {
+export class SideMenuClienteComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   infoUsuario: any = null;
@@ -34,8 +33,7 @@ export class SideMenuAdminComponent implements OnInit {
 
   loadInfoUsuario(): void {
     this.infoUsuario = this.authService.getInfoUsuario();
-    this.menus = JSON.parse(localStorage.getItem('menu-admin') || 'null');
-
+    this.menus = JSON.parse(localStorage.getItem('menu-cliente') || 'null');
     if(!this.menus){
       this.router.navigate(['auth/login']);
       return;
