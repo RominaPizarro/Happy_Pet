@@ -1,0 +1,48 @@
+<div class="container">
+  <div>
+    <div>
+      <h4>Historial clínico veterinadio de <strong>{{mascota?.nombre}}</strong></h4>
+      <hr>
+    </div>
+    <div class="pt-4">
+
+      <mat-card *ngIf="data.length == 0" class="w-full">
+        <mat-card-content>
+          <div class="text-center p-5">
+            AÚN NO TIENE INTERVENCIONES
+          </div>
+        </mat-card-content>
+
+      </mat-card>
+
+      <mat-card class="w-full" *ngFor="let item of data">
+        <mat-card-title>
+          <div class="p-2">
+            Fecha: {{ item.fecha | date: 'dd-MM-yyyy' }}
+            <p>
+              {{item.descripcion}}
+            </p>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+          <div>
+            <strong>Observaciones</strong>
+            <p>{{item.observaciones}}</p>
+          </div>
+
+          <div>
+            <strong>Receta</strong>
+            <p>{{item.receta}}</p>
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+
+    <div>
+    </div>
+  </div>
+
+
+</div>

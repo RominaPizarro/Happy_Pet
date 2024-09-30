@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthJWTService } from '../../../../../core/services/auth.service';
 import { MensajesService } from '../../../../../core/services/mensajes.service';
 import { FormValidationUtils } from '../../../../../utils/form-validation-utils';
-import { MascotaService } from '../../../services/mascota.service';
 import { ClienteService } from '../../../services/cliente.service';
-import { forkJoin } from 'rxjs';
-import { AuthService } from '../../../../auth/services/auth.service';
-import { AuthJWTService } from '../../../../../core/services/auth.service';
+import { MascotaService } from '../../../services/mascota.service';
 
 @Component({
   selector: 'app-mascota-list',

@@ -6,15 +6,14 @@ import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class MascotaService {
-  private basePath = environment.baseUrlBackend + '/mascota';
+export class HistorialService {
+  private basePath = environment.baseUrlBackend + '/historialclinico';
 
   constructor(private http: HttpClient) {}
 
-  list(clienteId: any, filter: any){
-    const path = `${this.basePath}/list/${clienteId}`;
-    const dato = {nombre: filter}
-    return this.http.post(path, dato).pipe(map((res) => res));
+  list(mascotaId: any){
+    const path = `${this.basePath}/list/${mascotaId}`;
+    return this.http.post(path, null).pipe(map((res) => res));
   }
 
   add(dato: any){
